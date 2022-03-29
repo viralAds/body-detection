@@ -120,7 +120,9 @@ function drawKeypoints() {
     }
 
     if (light === true) {
-      image(img, 500, 300, 340, 400);
+      let a = image(img, 500, 300, 340, 400);
+      // a1 = createA("http://p5js.org/", a, "_blank");
+      // a1.position(1000, 300);
     }
     if (light2 == true) {
       image(img2, 200, 100, 340, 400);
