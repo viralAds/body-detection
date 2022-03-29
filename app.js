@@ -120,10 +120,10 @@ function drawKeypoints() {
     }
 
     if (light === true) {
-      image(img, 500, 100, 500, 500);
+      image(img, 500, 300, 340, 400);
     }
     if (light2 == true) {
-      image(img2, 200, 100, 500, 500);
+      image(img2, 200, 100, 340, 400);
     }
 
     for (let j = 0; j < pose.keypoints.length; j++) {
@@ -163,14 +163,15 @@ function mouseClicked(event) {
   if (event.x >= 1030 && event.x <= 1080 && event.y >= 300 && event.y <= 390) {
     light = true;
   }
-  if (event.x >= 1000 && event.x <= 1010 && event.y >= 150 && event.y <= 165) {
+  if (event.x >= 837 && event.x <= 860 && event.y >= 355 && event.y <= 370) {
     light = false;
   }
   if (event.x >= 344 && event.x <= 565 && event.y >= 168 && event.y <= 189) {
     light2 = true;
   }
 
-  if (event.x >= 700 && event.x <= 715 && event.y >= 160 && event.y <= 170) {
+  if (event.x >= 535 && event.x <= 560 && event.y >= 160 && event.y <= 170) {
     light2 = false;
   }
 }
+362;
