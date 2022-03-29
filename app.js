@@ -99,10 +99,11 @@ function drawKeypoints() {
     ) {
       ellipse(pantX, pantY, 5, 5);
       line(pantX, pantY, 1000, 300);
-      let s = "click to";
-      fill("red");
-      textSize(50);
-      text(s, 1000, 300, 100, 100);
+      let s = "Buy Now";
+      fill("white");
+      strokeWeight(0);
+      textSize(18);
+      text(s, 1000, 290, 100, 100);
     }
 
     if (
@@ -113,10 +114,11 @@ function drawKeypoints() {
     ) {
       ellipse(suitX, suitY, 5, 5);
       line(suitX, suitY, 300, 150);
-      let s = "click to";
-      fill("red");
-      textSize(50);
-      text(s, 300, 100, 100, 100);
+      let s = "Buy Now";
+      fill("white");
+      strokeWeight(0);
+      textSize(18);
+      text(s, 290, 140, 100, 100);
     }
 
     if (light === true) {
@@ -160,8 +162,7 @@ function drawSkeleton() {
     }
   }
 }
-function mouseClicked(event) {
-  console.log(event.x, event.y);
+function mouseClicked(event) {;
   if (event.x >= 1030 && event.x <= 1080 && event.y >= 300 && event.y <= 390) {
     light = true;
   }
