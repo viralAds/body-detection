@@ -6,8 +6,7 @@ let button = null;
 let myButton;
 let img;
 let img2;
-let light = false;
-let light2 = false;
+
 // set cursor to wait until video elment is loaded
 document.body.style.cursor = "wait";
 
@@ -40,10 +39,6 @@ function setup() {
   video.hide();
 }
 
-function preload() {
-  img = loadImage("image1.jpg");
-  img2 = loadImage("image3.jpg");
-}
 function toggleVid() {
   if (playing) {
     video.pause();
@@ -121,15 +116,6 @@ function drawKeypoints() {
       text(s, 290, 140, 100, 100);
     }
 
-    if (light === true) {
-      let a = image(img, 500, 300, 340, 400);
-      // a1 = createA("http://p5js.org/", a, "_blank");
-      // a1.position(1000, 300);
-    }
-    if (light2 == true) {
-      image(img2, 200, 100, 340, 400);
-    }
-
     for (let j = 0; j < pose.keypoints.length; j++) {
       // A keypoint is an object describing a body part (like rightArm or leftShoulder)
       let keypoint = pose.keypoints[j];
@@ -162,19 +148,28 @@ function drawSkeleton() {
     }
   }
 }
-function mouseClicked(event) {;
+function mouseClicked(event) {
+  console.log(event.x, event.y);
   if (event.x >= 1030 && event.x <= 1080 && event.y >= 300 && event.y <= 390) {
-    light = true;
-  }
-  if (event.x >= 837 && event.x <= 860 && event.y >= 355 && event.y <= 370) {
-    light = false;
-  }
-  if (event.x >= 344 && event.x <= 565 && event.y >= 168 && event.y <= 189) {
-    light2 = true;
+    document.getElementById("popup1").style.display = "block";
   }
 
-  if (event.x >= 535 && event.x <= 560 && event.y >= 160 && event.y <= 170) {
-    light2 = false;
+  if (event.x >= 320 && event.x <= 365 && event.y >= 155 && event.y <= 189) {
+    document.getElementById("popup1").style.display = "block";
   }
 }
-362;
+document.getElementById("cross1").addEventListener("click", function (e) {
+  e.stopPropagation();
+  console.log("run");
+  document.getElementById("popup1").style.display = "none";
+});
+
+document.getElementById("cross2").addEventListener("click", function (e) {
+  e.stopPropagation();
+  console.log("run");
+  document.getElementById("popup2").style.display = "none";
+});
+
+function throwfunc() {
+  window.location.href = "https://www.ekaleido.co/";
+}
