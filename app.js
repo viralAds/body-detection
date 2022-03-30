@@ -25,8 +25,10 @@ function setup() {
 	video = createVideo(["berry.mp4"]);
 	video.size(1280, 720);
 
-	button = createButton("play");
+	button = createButton("PLAY");
 	button.mousePressed(toggleVid);
+	button.style('width', "100%")
+	button.style('height', "50px")
 
 	poseNet = ml5.poseNet(video, modelReady);
 	poseNet.on("pose", function (results) {
@@ -44,10 +46,10 @@ function setup() {
 function toggleVid() {
 	if (playing) {
 		video.pause();
-		button.html("play");
+		button.html("PLAY");
 	} else {
 		video.play();
-		button.html("pause");
+		button.html("PAUSE");
 	}
 	playing = !playing;
 }
@@ -73,9 +75,10 @@ function drawSkeleton() {
 
 		let pantX = (Knee.x + leftHip.x) / 2;
 		let pantY = (Knee.y + leftHip.y) / 2;
+		noFill();
 		stroke(256, 256, 256);
 		if (
-			(video.elt.currentTime > 5 && video.elt.currentTime < 9) ||
+			(video.elt.currentTime > 5 && video.elt.currentTime < 8) ||
 			(video.elt.currentTime > 12 && video.elt.currentTime < 15) ||
 			(video.elt.currentTime > 24 && video.elt.currentTime < 33) ||
 			(video.elt.currentTime > 45 && video.elt.currentTime < 56)
@@ -83,24 +86,11 @@ function drawSkeleton() {
 			line(pantX, pantY, 1000, 300);
 			ellipse(pantX, pantY, 5, 5);
 			let s = "Buy Now";
-
 			strokeWeight(1);
 			textSize(18);
 			text(s, 1000, 290, 100, 100);
 		}
-
-		// For every skeleton, loop through all body connections
-		// for (let j = 0; j < skeleton.length; j++) {
-		// 	let partA = skeleton[j][0];
-		// 	let partB = skeleton[j][1];
-		stroke(256, 256, 256);
-		//   line(
-		//     partA.position.x,
-		//     partA.position.y,
-		//     partB.position.x,
-		//     partB.position.y
-		//   );
-		// 	}
+		
 	}
 }
 function drawKeypoints() {
@@ -122,7 +112,7 @@ function drawKeypoints() {
 		strokeWeight(2);
 
 		if (
-			(video.elt.currentTime >= 1 && video.elt.currentTime < 9) ||
+			(video.elt.currentTime >= 1 && video.elt.currentTime < 8) ||
 			(video.elt.currentTime > 12 && video.elt.currentTime < 33) ||
 			(video.elt.currentTime > 40 && video.elt.currentTime < 50) ||
 			(video.elt.currentTime > 54 && video.elt.currentTime < 56)
