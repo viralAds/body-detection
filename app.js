@@ -6,6 +6,11 @@ let button = null;
 let myButton;
 let img;
 let img2;
+let x = 1;
+let y = 1;
+let x1 = 1;
+let y1 = 1;
+let easing = 0.05;
 
 // set cursor to wait until video elment is loaded
 document.body.style.cursor = "wait";
@@ -75,11 +80,15 @@ function drawKeypoints() {
     let leftHip = pose.leftHip;
     let Knee = pose.leftKnee;
 
-    let suitX = (rightShoulder.x + rightHip.x) / 2;
-    let suitY = (rightShoulder.y + rightHip.y) / 2;
+    let suitX = (rightShoulder.x + rightHip.x) / 2 - x1;
+    x1 += suitX * easing;
+    let suitY = (rightShoulder.y + rightHip.y) / 2 - y1;
+    y1 += suitY * easing;
 
-    let pantX = (Knee.x + leftHip.x) / 2;
-    let pantY = (Knee.y + leftHip.y) / 2;
+    let pantX = (Knee.x + leftHip.x) / 2 - x;
+    x += pantX * easing;
+    let pantY = (Knee.y + leftHip.y) / 2 - y;
+    y += pantY * easing;
 
     // width of the stroke
     strokeWeight(2);
@@ -92,8 +101,8 @@ function drawKeypoints() {
       (video.elt.currentTime > 24 && video.elt.currentTime < 33) ||
       (video.elt.currentTime > 45 && video.elt.currentTime < 56)
     ) {
-      ellipse(pantX, pantY, 5, 5);
-      line(pantX, pantY, 1000, 300);
+      ellipse(x, y, 5, 5);
+      line(x, y, 1000, 300);
       let s = "Buy Now";
       fill("white");
       strokeWeight(0);
@@ -107,10 +116,11 @@ function drawKeypoints() {
       (video.elt.currentTime > 40 && video.elt.currentTime < 50) ||
       (video.elt.currentTime > 54 && video.elt.currentTime < 56)
     ) {
-      ellipse(suitX, suitY, 5, 5);
-      line(suitX, suitY, 300, 150);
+      ellipse(x1, y1, 5, 5);
+      line(x1, y1, 300, 150);
       let s = "Buy Now";
       fill("white");
+
       strokeWeight(0);
       textSize(18);
       text(s, 290, 140, 100, 100);
