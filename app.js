@@ -16,14 +16,27 @@ let easing = 0.05;
 document.body.style.cursor = "wait";
 
 function setup() {
-	// noCanvas();
-	createCanvas(1280, 720);
+	let parentDiv = createDiv();
+	parentDiv.position(0, 0);
+	parentDiv.style("position", "relative");
+	parentDiv.style("height", "720px");
+	parentDiv.style("width", "1280px");
+
+	let suitDiv = document.getElementById("popup1");
+	let pantDiv = document.getElementById("popup2");
+	let canvas = createCanvas(1280, 720);
+
+	parentDiv.child(canvas);
+	parentDiv.child(suitDiv);
+	parentDiv.child(pantDiv);
 
 	video = createVideo(["berry.mp4"]);
 	video.size(1280, 720);
 
-	button = createButton("play");
+	button = createButton("PLAY");
 	button.mousePressed(toggleVid);
+	button.style('width', "100%")
+	button.style('height', "50px")
 
 	// Create a new poseNet method with a single detection
 	poseNet = ml5.poseNet(video, modelReady);
@@ -100,6 +113,7 @@ function drawKeypoints() {
 		) {
 			fill("white");
 			ellipse(x, y, 5, 5);
+			ellipse(x1, y1, 5, 5);
 
 			noFill();
 			strokeWeight(2);
@@ -110,7 +124,7 @@ function drawKeypoints() {
 			fill("white");
 			textSize(18);
 			text(s, 1000, 290, 100, 100);
-
+			
 			let s1 = "Buy Now";
 			fill("white");
 			strokeWeight(0);
@@ -204,6 +218,8 @@ document.getElementById("cross2").addEventListener("click", function (e) {
 	document.getElementById("popup2").style.display = "none";
 });
 
+	
+	
 function throwfunc() {
-	window.location.href = "https://www.ekaleido.co/";
+	window.open("https://www.google.com/", "_blank");
 }
