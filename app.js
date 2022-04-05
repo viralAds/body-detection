@@ -35,8 +35,8 @@ function setup() {
 
 	button = createButton("PLAY");
 	button.mousePressed(toggleVid);
-	button.style('width', "100%")
-	button.style('height', "50px")
+	button.style("width", "100%");
+	button.style("height", "50px");
 
 	// Create a new poseNet method with a single detection
 	poseNet = ml5.poseNet(video, modelReady);
@@ -124,7 +124,7 @@ function drawKeypoints() {
 			fill("white");
 			textSize(18);
 			text(s, 1000, 290, 100, 100);
-			
+
 			let s1 = "Buy Now";
 			fill("white");
 			strokeWeight(0);
@@ -203,23 +203,25 @@ function drawSkeleton() {
 function mouseClicked(event) {
 	if (event.x >= 1030 && event.x <= 1080 && event.y >= 300 && event.y <= 390) {
 		document.getElementById("popup1").style.display = "block";
+		toggleVid();
 	}
 	if (event.x >= 320 && event.x <= 365 && event.y >= 155 && event.y <= 189) {
 		document.getElementById("popup1").style.display = "block";
+		toggleVid();
 	}
 }
 document.getElementById("cross1").addEventListener("click", function (e) {
 	e.stopPropagation();
+	toggleVid();
 	document.getElementById("popup1").style.display = "none";
 });
 
 document.getElementById("cross2").addEventListener("click", function (e) {
 	e.stopPropagation();
+	toggleVid();
 	document.getElementById("popup2").style.display = "none";
 });
 
-	
-	
 function throwfunc() {
 	window.open("https://www.google.com/", "_blank");
 }
