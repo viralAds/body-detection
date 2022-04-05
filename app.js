@@ -96,6 +96,21 @@ function drawKeypoints() {
     noFill();
 
     if (
+      (video.elt.currentTime >= 1 && video.elt.currentTime < 8) ||
+      (video.elt.currentTime > 12 && video.elt.currentTime < 33) ||
+      (video.elt.currentTime > 40 && video.elt.currentTime < 50) ||
+      (video.elt.currentTime > 54 && video.elt.currentTime < 56)
+    ) {
+      ellipse(x1, y1, 5, 5);
+      line(x1, y1, 300, 150);
+      let s = "Buy Now";
+      fill("white");
+      strokeWeight(0);
+      textSize(18);
+      text(s, 290, 140, 100, 100);
+    }
+
+    if (
       (video.elt.currentTime > 5 && video.elt.currentTime < 9) ||
       (video.elt.currentTime > 12 && video.elt.currentTime < 15) ||
       (video.elt.currentTime > 24 && video.elt.currentTime < 33) ||
@@ -108,22 +123,6 @@ function drawKeypoints() {
       strokeWeight(0);
       textSize(18);
       text(s, 1000, 290, 100, 100);
-    }
-
-    if (
-      (video.elt.currentTime >= 1 && video.elt.currentTime < 8) ||
-      (video.elt.currentTime > 12 && video.elt.currentTime < 33) ||
-      (video.elt.currentTime > 40 && video.elt.currentTime < 50) ||
-      (video.elt.currentTime > 54 && video.elt.currentTime < 56)
-    ) {
-      ellipse(x1, y1, 5, 5);
-      line(x1, y1, 300, 150);
-      let s = "Buy Now";
-      fill("white");
-
-      strokeWeight(0);
-      textSize(18);
-      text(s, 290, 140, 100, 100);
     }
 
     for (let j = 0; j < pose.keypoints.length; j++) {
@@ -170,13 +169,11 @@ function mouseClicked(event) {
 }
 document.getElementById("cross1").addEventListener("click", function (e) {
   e.stopPropagation();
-  console.log("run");
   document.getElementById("popup1").style.display = "none";
 });
 
 document.getElementById("cross2").addEventListener("click", function (e) {
   e.stopPropagation();
-  console.log("run");
   document.getElementById("popup2").style.display = "none";
 });
 
