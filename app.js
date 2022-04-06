@@ -13,6 +13,7 @@ let y1 = 1;
 let easing = 0.05;
 let buttonSuit = null;
 let buttonPant = null;
+let a;
 
 // set cursor to wait until video elment is loaded
 document.body.style.cursor = "wait";
@@ -122,15 +123,13 @@ function drawKeypoints() {
       line(x, y, 1000, 300);
       line(x1, y1, 300, 150);
 
-      // let buttonSuit = createButton("click me");
-      // buttonSuit.position(1000, 290);
-      // buttonSuit.mousePressed(showpopUp);
-
-      // let buttonPant = createButton("click me");
-      // buttonPant.position(290, 140);
-      // buttonPant.mousePressed(showpopUp);
+      document.getElementById("btn_").style.display = "block";
+      document.getElementById("btn_2").style.display = "block";
+    } else {
+      console.log(45);
+      document.getElementById("btn_").style.display = "none";
+      document.getElementById("btn_2").style.display = "none";
     }
-
     // Only Pants
     if (video.elt.currentTime > 50 && video.elt.currentTime < 53) {
       fill("white");
@@ -139,10 +138,7 @@ function drawKeypoints() {
       noFill();
       strokeWeight(2);
       line(x, y, 1000, 300);
-
-      buttonPant = createButton("click me");
-      buttonPant.position(1000, 290);
-      buttonPant.mousePressed(showpopUp);
+      document.getElementById("btn_2").style.display = "block";
     }
 
     // Only Suit
@@ -157,10 +153,7 @@ function drawKeypoints() {
       noFill();
       strokeWeight(2);
       line(x1, y1, 300, 150);
-
-      buttonSuit = createButton("click me");
-      buttonSuit.position(290, 140);
-      buttonSuit.mousePressed(showpopUp);
+      document.getElementById("btn_").style.display = "block";
     }
 
     for (let j = 0; j < pose.keypoints.length; j++) {
