@@ -11,19 +11,34 @@ let y = 1;
 let x1 = 1;
 let y1 = 1;
 let easing = 0.05;
+let buttonSuit = null;
+let buttonPant = null;
 
 // set cursor to wait until video elment is loaded
 document.body.style.cursor = "wait";
 
 function setup() {
-  // noCanvas();
-  createCanvas(1280, 720);
+  let parentDiv = createDiv();
+  parentDiv.position(0, 0);
+  parentDiv.style("position", "relative");
+  parentDiv.style("height", "720px");
+  parentDiv.style("width", "1280px");
+
+  let suitDiv = document.getElementById("popup1");
+  let pantDiv = document.getElementById("popup2");
+  let canvas = createCanvas(1280, 720);
+
+  parentDiv.child(canvas);
+  parentDiv.child(suitDiv);
+  parentDiv.child(pantDiv);
 
   video = createVideo(["berry.mp4"]);
   video.size(1280, 720);
 
-  button = createButton("play");
+  button = createButton("PLAY");
   button.mousePressed(toggleVid);
+  button.style("width", "100%");
+  button.style("height", "50px");
 
   // Create a new poseNet method with a single detection
   poseNet = ml5.poseNet(video, modelReady);
@@ -60,12 +75,12 @@ function modelReady() {
 }
 
 function draw() {
-  background(200, 200, 0);
+  background("#e0e0e0e");
   image(video, 0, 0, 1280, 720);
 
   // We can call both functions to draw all keypoints and the skeletons
-  drawKeypoints();
   drawSkeleton();
+  drawKeypoints();
 }
 
 // A function to draw ellipses over the detected keypoints
@@ -74,55 +89,78 @@ function drawKeypoints() {
   for (let i = 0; i < poses.length; i++) {
     // For each pose detected, loop through all the keypoints
     let pose = poses[i].pose;
-    // console.log(pose);
+
     let rightShoulder = pose.rightShoulder;
     let rightHip = pose.rightHip;
-    let leftHip = pose.leftHip;
-    let Knee = pose.leftKnee;
-
     let suitX = (rightShoulder.x + rightHip.x) / 2 - x1;
     x1 += suitX * easing;
     let suitY = (rightShoulder.y + rightHip.y) / 2 - y1;
     y1 += suitY * easing;
+
+    let leftHip = pose.leftHip;
+    let Knee = pose.leftKnee;
 
     let pantX = (Knee.x + leftHip.x) / 2 - x;
     x += pantX * easing;
     let pantY = (Knee.y + leftHip.y) / 2 - y;
     y += pantY * easing;
 
-    // width of the stroke
-    strokeWeight(2);
-    // Disables filling geometry
-    noFill();
-
+    // Common
     if (
-      (video.elt.currentTime >= 1 && video.elt.currentTime < 8) ||
-      (video.elt.currentTime > 12 && video.elt.currentTime < 33) ||
-      (video.elt.currentTime > 40 && video.elt.currentTime < 50) ||
-      (video.elt.currentTime > 54 && video.elt.currentTime < 56)
+      (video.elt.currentTime > 5 && video.elt.currentTime < 8) ||
+      (video.elt.currentTime > 12 && video.elt.currentTime < 13) ||
+      (video.elt.currentTime > 24 && video.elt.currentTime < 33) ||
+      (video.elt.currentTime > 45 && video.elt.currentTime < 50) ||
+      (video.elt.currentTime > 54 && video.elt.currentTime < 55)
     ) {
-      ellipse(x1, y1, 5, 5);
-      line(x1, y1, 300, 150);
-      let s = "Buy Now";
       fill("white");
-      strokeWeight(0);
-      textSize(18);
-      text(s, 290, 140, 100, 100);
+      ellipse(x, y, 5, 5);
+      ellipse(x1, y1, 5, 5);
+
+      noFill();
+      strokeWeight(2);
+      line(x, y, 1000, 300);
+      line(x1, y1, 300, 150);
+
+      // let buttonSuit = createButton("click me");
+      // buttonSuit.position(1000, 290);
+      // buttonSuit.mousePressed(showpopUp);
+
+      // let buttonPant = createButton("click me");
+      // buttonPant.position(290, 140);
+      // buttonPant.mousePressed(showpopUp);
     }
 
-    if (
-      (video.elt.currentTime > 5 && video.elt.currentTime < 9) ||
-      (video.elt.currentTime > 12 && video.elt.currentTime < 15) ||
-      (video.elt.currentTime > 24 && video.elt.currentTime < 33) ||
-      (video.elt.currentTime > 45 && video.elt.currentTime < 56)
-    ) {
-      ellipse(x, y, 5, 5);
-      line(x, y, 1000, 300);
-      let s = "Buy Now";
+    // Only Pants
+    if (video.elt.currentTime > 50 && video.elt.currentTime < 53) {
       fill("white");
-      strokeWeight(0);
-      textSize(18);
-      text(s, 1000, 290, 100, 100);
+      ellipse(x, y, 5, 5);
+
+      noFill();
+      strokeWeight(2);
+      line(x, y, 1000, 300);
+
+      buttonPant = createButton("click me");
+      buttonPant.position(1000, 290);
+      buttonPant.mousePressed(showpopUp);
+    }
+
+    // Only Suit
+    if (
+      (video.elt.currentTime >= 1 && video.elt.currentTime < 5) ||
+      (video.elt.currentTime > 13 && video.elt.currentTime < 24) ||
+      (video.elt.currentTime > 40 && video.elt.currentTime < 45)
+    ) {
+      fill("white");
+      ellipse(x1, y1, 5, 5);
+
+      noFill();
+      strokeWeight(2);
+      line(x1, y1, 300, 150);
+
+      buttonSuit = createButton("click me");
+      buttonSuit.position(290, 140);
+      buttonSuit.mousePressed(showpopUp);
     }
 
     for (let j = 0; j < pose.keypoints.length; j++) {
@@ -144,10 +182,11 @@ function drawSkeleton() {
   for (let i = 0; i < poses.length; i++) {
     let skeleton = poses[i].skeleton;
     // For every skeleton, loop through all body connections
+
     for (let j = 0; j < skeleton.length; j++) {
       let partA = skeleton[j][0];
       let partB = skeleton[j][1];
-      stroke(0, 0, 0);
+      stroke(256, 256, 256);
       //   line(
       //     partA.position.x,
       //     partA.position.y,
@@ -157,26 +196,33 @@ function drawSkeleton() {
     }
   }
 }
-function mouseClicked(event) {
-  console.log(event.x, event.y);
-  if (event.x >= 1030 && event.x <= 1080 && event.y >= 300 && event.y <= 390) {
-    document.getElementById("popup1").style.display = "block";
-  }
-
-  if (event.x >= 320 && event.x <= 365 && event.y >= 155 && event.y <= 189) {
-    document.getElementById("popup1").style.display = "block";
-  }
-}
+// function mouseClicked(event) {
+//   if (event.x >= 1030 && event.x <= 1080 && event.y >= 300 && event.y <= 390) {
+//     document.getElementById("popup1").style.display = "block";
+//     toggleVid();
+//   }
+//   if (event.x >= 320 && event.x <= 365 && event.y >= 155 && event.y <= 189) {
+//     document.getElementById("popup1").style.display = "block";
+//     toggleVid();
+//   }
+// }
 document.getElementById("cross1").addEventListener("click", function (e) {
   e.stopPropagation();
+
   document.getElementById("popup1").style.display = "none";
 });
 
 document.getElementById("cross2").addEventListener("click", function (e) {
   e.stopPropagation();
+
   document.getElementById("popup2").style.display = "none";
 });
 
 function throwfunc() {
-  window.location.href = "https://www.ekaleido.co/";
+  window.open("https://www.google.com/", "_blank");
+}
+
+function showpopUp() {
+  console.log(45);
+  document.getElementById("popup1").style.display = "block";
 }
