@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Rubik+Bubbles&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 canvas {
   border: 1px solid black;
   width: 100% !important;
@@ -45,7 +46,7 @@ button.btn_ {
   background-color: transparent;
   font-weight: bold;
   font-size: 21px;
-  font-family: "Rubik Bubbles", cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 button.btn_2 {
@@ -62,7 +63,7 @@ button.btn_2 {
   font-size: 21px;
   color: white;
   display: none;
-  font-family: "Rubik Bubbles", cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 @media (max-width: 1899px) {
