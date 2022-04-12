@@ -23,15 +23,13 @@ function setup() {
   parentDiv.position(0, 0);
   parentDiv.style("position", "relative");
   parentDiv.style("height", "720px");
-  parentDiv.style("width", "1280px");
+  parentDiv.style("width", "100%");
 
   let suitDiv = document.getElementById("popup1");
   let pantDiv = document.getElementById("popup2");
+  let suitDivBtn = document.getElementById("btn_");
+  let pantDivbtn = document.getElementById("btn_2");
   let canvas = createCanvas(1280, 720);
-
-  parentDiv.child(canvas);
-  parentDiv.child(suitDiv);
-  parentDiv.child(pantDiv);
 
   video = createVideo(["berry.mp4"]);
   video.size(1280, 720);
@@ -41,6 +39,12 @@ function setup() {
   button.style("width", "100%");
   button.style("height", "50px");
 
+  parentDiv.child(canvas);
+  parentDiv.child(suitDiv);
+  parentDiv.child(pantDiv);
+  parentDiv.child(suitDivBtn);
+  parentDiv.child(pantDivbtn);
+  parentDiv.child(button);
   // Create a new poseNet method with a single detection
   poseNet = ml5.poseNet(video, modelReady);
   // This sets up an event that fills the global variable "poses"
@@ -126,7 +130,6 @@ function drawKeypoints() {
       document.getElementById("btn_").style.display = "block";
       document.getElementById("btn_2").style.display = "block";
     } else {
-      console.log(45);
       document.getElementById("btn_").style.display = "none";
       document.getElementById("btn_2").style.display = "none";
     }
@@ -180,12 +183,12 @@ function drawSkeleton() {
       let partA = skeleton[j][0];
       let partB = skeleton[j][1];
       stroke(256, 256, 256);
-      //   line(
-      //     partA.position.x,
-      //     partA.position.y,
-      //     partB.position.x,
-      //     partB.position.y
-      //   );
+      // line(
+      //   partA.position.x,
+      //   partA.position.y,
+      //   partB.position.x,
+      //   partB.position.y
+      // );
     }
   }
 }
